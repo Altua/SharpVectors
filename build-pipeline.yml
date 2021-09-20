@@ -1,10 +1,8 @@
 name: $(Build.SourceBranchName)-$(Year:yy).$(Month).$(DayOfYear).$(Revision)
 
-trigger:
-- master
+trigger: none
 
-pr:
-- master
+pr: none
 
 pool:
   vmImage: 'windows-latest'
@@ -17,15 +15,58 @@ resources:
       endpoint: Altua
 
 variables:
-  - name: Revision
-    value: $[counter('altua.sharpvectors', 0)]
-    
-jobs:
-- template: build-template-pipeline.yml@templates
-  parameters:
-    name: FastBitmap
-    project: Altua.SharpVectors
-    buildConfiguration: Release
-    buildPlatform: 'Any CPU'
-    revision: $(Revision)
-    branchName: master
+- group: secrets
+- name: solution
+  value: 'Source/SharpVectors.sln'
+- name: buildPlatform 
+  value: 'Any CPU'
+- name: buildConfiguration
+  value: 'Release'
+- name: disable.coverage.autogenerate
+  value: 'true'
+- name: Revision
+  value: $[counter('altua.sharpvectors', 0)]
+
+steps:
+- template: assemblyversion-variable-template.yml@templates
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: 'build'
+    projects: '$(solution)'
+    arguments: '--configuration $(buildConfiguration) --no-restore -p:Version=$(assemblyVersion)'
+
+- task: CopyFiles@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: Copy files to staging
+  inputs:
+    Contents: |
+      Output\**\*.dll
+      Source\*.nuspec
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: DownloadSecureFile@1    
+  name: certificate
+  displayName: 'Download code certificate'    
+  inputs:
+    secureFile: 'grunt.code.pfx'
+
+- task: PowerShell@2
+  displayName: Sign assemblies    
+  inputs:
+    targetType: 'inline'
+    script: |
+      $env:Path += ";${env:ProgramFiles(x86)}\Microsoft SDKs\ClickOnce\SignTool" 
+      $assemblies = gci '$(Build.ArtifactStagingDirectory)/**/*.dll' -Recurse
+      foreach($assembly in $assemblies) {
+          signtool sign /fd SHA1 /td SHA1 /f $(certificate.secureFilePath) /p $(certPass) /q /tr http://timestamp.digicert.com $assembly
+          signtool sign /fd SHA256 /td SHA256 /f $(certificate.secureFilePath) /p $(certPass) /q /as /tr http://timestamp.digicert.com $assembly
+      }
+
+- task: PublishPipelineArtifact@1
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: Publish code artifact
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)\SharpVectors'
+    artifact: 'Altua.SharpVectors'
