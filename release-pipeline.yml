@@ -4,25 +4,39 @@ pr: none
 
 pool:
   vmImage: 'windows-latest'
-
-resources:
-  repositories:
-    - repository: templates
-      type: github
-      name: Altua/BuildTemplates
-      endpoint: Altua
-
+  
 variables:
+  buildConfiguration: Release
   Major: 1
   Minor: 0
   Revision: $[counter(format('{0}-{1}', variables['Major'], variables['Minor']), 0)]
   PackageVersion: $[format('{0}.{1}.{2}', variables['Major'], variables['Minor'], variables['Revision'])]
 
 steps:
-- template: release-template-pipeline.yml@templates
-  parameters:
-    project: Altua.SharpVectors
-    pipelineId: 86
-    packageVersion: $(PackageVersion)
-    buildConfiguration: Release
-    branchName: master
+- task: DownloadPipelineArtifact@2
+  displayName: Download package artifacts
+  inputs:
+    buildType: 'specific'
+    project: 'a119dd29-1840-4811-bac7-d797f815186b'
+    definition: '100'
+    specificBuildWithTriggering: false
+    buildVersionToDownload: 'latestFromBranch'
+    branchName: 'refs/heads/master'
+    artifactName: 'Altua.SharpVectors'
+    targetPath: '$(Pipeline.Workspace)'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(Pipeline.Workspace)/SharpVectors.nuspec'
+    packDestination: '$(Pipeline.Workspace)/Package'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'PackageVersion'
+
+- task: DotNetCoreCLI@2
+  displayName: Push package
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Pipeline.Workspace)/Package/**/*.nupkg;!$(Pipeline.Workspace)/Package/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'a0b0aaaa-c5cc-43c6-af3e-60bcbbc1f245'
