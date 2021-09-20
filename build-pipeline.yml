@@ -1,0 +1,31 @@
+name: $(Build.SourceBranchName)-$(Year:yy).$(Month).$(DayOfYear).$(Revision)
+
+trigger:
+- master
+
+pr:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: Altua/BuildTemplates
+      endpoint: Altua
+
+variables:
+  - name: Revision
+    value: $[counter('altua.sharpvectors', 0)]
+    
+jobs:
+- template: build-template-pipeline.yml@templates
+  parameters:
+    name: FastBitmap
+    project: Altua.SharpVectors
+    buildConfiguration: Release
+    buildPlatform: 'Any CPU'
+    revision: $(Revision)
+    branchName: master

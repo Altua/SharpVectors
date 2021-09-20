@@ -1,0 +1,28 @@
+trigger: none
+
+pr: none
+
+pool:
+  vmImage: 'windows-latest'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: Altua/BuildTemplates
+      endpoint: Altua
+
+variables:
+  Major: 1
+  Minor: 0
+  Revision: $[counter(format('{0}-{1}', variables['Major'], variables['Minor']), 0)]
+  PackageVersion: $[format('{0}.{1}.{2}', variables['Major'], variables['Minor'], variables['Revision'])]
+
+steps:
+- template: release-template-pipeline.yml@templates
+  parameters:
+    project: Altua.SharpVectors
+    pipelineId: 86
+    packageVersion: $(PackageVersion)
+    buildConfiguration: Release
+    branchName: master
