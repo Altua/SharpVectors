@@ -31,6 +31,13 @@ steps:
 - template: assemblyversion-variable-template.yml@templates
 
 - task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: 'restore'
+    projects: '$(solution)'
+    feedsToUse: 'select'
+
+- task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: 'build'
