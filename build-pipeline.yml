@@ -51,6 +51,8 @@ steps:
     Contents: |
       Output\**\*.*
       Source\*.nuspec
+      Images\SharpVectors64.png
+      License.txt
     TargetFolder: '$(Build.ArtifactStagingDirectory)\SharpVectors'
 
 - task: DownloadSecureFile@1    
