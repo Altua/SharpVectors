@@ -49,7 +49,7 @@ steps:
   displayName: Copy files to staging
   inputs:
     Contents: |
-      Output\**\*.dll
+      Output\**\*.*
       Source\*.nuspec
     TargetFolder: '$(Build.ArtifactStagingDirectory)\SharpVectors'
 
