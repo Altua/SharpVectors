@@ -32,23 +32,23 @@
   </metadata>
   <files>
     <!-- net40 -->
-    <file src="..\Output\net40\SharpVectors.Converters.Wpf.dll" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Core.dll" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Css.dll" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Dom.dll" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Model.dll" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Rendering.Gdi.dll" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Rendering.Wpf.dll" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Runtime.Wpf.dll" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Converters.Wpf.dll" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Core.dll" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Css.dll" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Dom.dll" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Model.dll" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Rendering.Gdi.dll" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Rendering.Wpf.dll" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Runtime.Wpf.dll" target="lib\net40"/>
 
-    <file src="..\Output\net40\SharpVectors.Converters.Wpf.xml" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Core.xml" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Css.xml" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Dom.xml" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Model.xml" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Rendering.Gdi.xml" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Rendering.Wpf.xml" target="lib\net40"/>
-    <file src="..\Output\net40\SharpVectors.Runtime.Wpf.xml" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Converters.Wpf.xml" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Core.xml" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Css.xml" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Dom.xml" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Model.xml" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Rendering.Gdi.xml" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Rendering.Wpf.xml" target="lib\net40"/>
+    <file src="..\Output\net40\Altua.SharpVectors.Runtime.Wpf.xml" target="lib\net40"/>
 
     <!--<file src="..\Output\SharpVectors.Converters.Wpf.pdb" target="lib\net40"/>
     <file src="..\Output\SharpVectors.Core.pdb" target="lib\net40"/>
@@ -60,118 +60,118 @@
     <file src="..\Output\SharpVectors.Runtime.Wpf.pdb" target="lib\net40"/>-->
 
     <!-- net45 -->
-    <file src="..\Output\net45\SharpVectors.Converters.Wpf.dll" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Core.dll" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Css.dll" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Dom.dll" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Model.dll" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Rendering.Gdi.dll" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Rendering.Wpf.dll" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Runtime.Wpf.dll" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Converters.Wpf.dll" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Core.dll" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Css.dll" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Dom.dll" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Model.dll" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Rendering.Gdi.dll" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Rendering.Wpf.dll" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Runtime.Wpf.dll" target="lib\net45"/>
 
-    <file src="..\Output\net45\SharpVectors.Converters.Wpf.xml" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Core.xml" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Css.xml" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Dom.xml" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Model.xml" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Rendering.Gdi.xml" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Rendering.Wpf.xml" target="lib\net45"/>
-    <file src="..\Output\net45\SharpVectors.Runtime.Wpf.xml" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Converters.Wpf.xml" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Core.xml" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Css.xml" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Dom.xml" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Model.xml" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Rendering.Gdi.xml" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Rendering.Wpf.xml" target="lib\net45"/>
+    <file src="..\Output\net45\Altua.SharpVectors.Runtime.Wpf.xml" target="lib\net45"/>
 
     <!-- net46 -->
-    <file src="..\Output\net46\SharpVectors.Converters.Wpf.dll" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Core.dll" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Css.dll" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Dom.dll" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Model.dll" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Rendering.Gdi.dll" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Rendering.Wpf.dll" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Runtime.Wpf.dll" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Converters.Wpf.dll" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Core.dll" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Css.dll" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Dom.dll" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Model.dll" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Rendering.Gdi.dll" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Rendering.Wpf.dll" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Runtime.Wpf.dll" target="lib\net46"/>
 
-    <file src="..\Output\net46\SharpVectors.Converters.Wpf.xml" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Core.xml" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Css.xml" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Dom.xml" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Model.xml" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Rendering.Gdi.xml" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Rendering.Wpf.xml" target="lib\net46"/>
-    <file src="..\Output\net46\SharpVectors.Runtime.Wpf.xml" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Converters.Wpf.xml" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Core.xml" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Css.xml" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Dom.xml" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Model.xml" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Rendering.Gdi.xml" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Rendering.Wpf.xml" target="lib\net46"/>
+    <file src="..\Output\net46\Altua.SharpVectors.Runtime.Wpf.xml" target="lib\net46"/>
 
     <!-- net47 -->
-    <file src="..\Output\net47\SharpVectors.Converters.Wpf.dll" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Core.dll" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Css.dll" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Dom.dll" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Model.dll" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Rendering.Gdi.dll" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Rendering.Wpf.dll" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Runtime.Wpf.dll" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Converters.Wpf.dll" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Core.dll" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Css.dll" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Dom.dll" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Model.dll" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Rendering.Gdi.dll" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Rendering.Wpf.dll" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Runtime.Wpf.dll" target="lib\net47"/>
 
-    <file src="..\Output\net47\SharpVectors.Converters.Wpf.xml" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Core.xml" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Css.xml" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Dom.xml" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Model.xml" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Rendering.Gdi.xml" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Rendering.Wpf.xml" target="lib\net47"/>
-    <file src="..\Output\net47\SharpVectors.Runtime.Wpf.xml" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Converters.Wpf.xml" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Core.xml" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Css.xml" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Dom.xml" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Model.xml" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Rendering.Gdi.xml" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Rendering.Wpf.xml" target="lib\net47"/>
+    <file src="..\Output\net47\Altua.SharpVectors.Runtime.Wpf.xml" target="lib\net47"/>
 
     <!-- net48 -->
-    <file src="..\Output\net48\SharpVectors.Converters.Wpf.dll" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Core.dll" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Css.dll" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Dom.dll" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Model.dll" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Rendering.Gdi.dll" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Rendering.Wpf.dll" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Runtime.Wpf.dll" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Converters.Wpf.dll" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Core.dll" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Css.dll" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Dom.dll" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Model.dll" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Rendering.Gdi.dll" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Rendering.Wpf.dll" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Runtime.Wpf.dll" target="lib\net48"/>
 
-    <file src="..\Output\net48\SharpVectors.Converters.Wpf.xml" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Core.xml" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Css.xml" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Dom.xml" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Model.xml" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Rendering.Gdi.xml" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Rendering.Wpf.xml" target="lib\net48"/>
-    <file src="..\Output\net48\SharpVectors.Runtime.Wpf.xml" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Converters.Wpf.xml" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Core.xml" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Css.xml" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Dom.xml" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Model.xml" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Rendering.Gdi.xml" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Rendering.Wpf.xml" target="lib\net48"/>
+    <file src="..\Output\net48\Altua.SharpVectors.Runtime.Wpf.xml" target="lib\net48"/>
 
     <!-- NetCoreApp3.1 -->
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Converters.Wpf.dll" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Core.dll" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Css.dll" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Dom.dll" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Model.dll" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Rendering.Gdi.dll" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Rendering.Wpf.dll" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Runtime.Wpf.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Converters.Wpf.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Core.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Css.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Dom.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Model.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Rendering.Gdi.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Rendering.Wpf.dll" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Runtime.Wpf.dll" target="lib\netcoreapp3.1"/>
 
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Converters.Wpf.xml" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Core.xml" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Css.xml" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Dom.xml" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Model.xml" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Rendering.Gdi.xml" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Rendering.Wpf.xml" target="lib\netcoreapp3.1"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Runtime.Wpf.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Converters.Wpf.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Core.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Css.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Dom.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Model.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Rendering.Gdi.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Rendering.Wpf.xml" target="lib\netcoreapp3.1"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Runtime.Wpf.xml" target="lib\netcoreapp3.1"/>
 
     <!-- Net5.0-Windows -->
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Converters.Wpf.dll" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Core.dll" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Css.dll" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Dom.dll" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Model.dll" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Rendering.Gdi.dll" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Rendering.Wpf.dll" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Runtime.Wpf.dll" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Converters.Wpf.dll" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Core.dll" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Css.dll" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Dom.dll" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Model.dll" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Rendering.Gdi.dll" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Rendering.Wpf.dll" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Runtime.Wpf.dll" target="lib\net5.0-windows"/>
 
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Converters.Wpf.xml" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Core.xml" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Css.xml" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Dom.xml" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Model.xml" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Rendering.Gdi.xml" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Rendering.Wpf.xml" target="lib\net5.0-windows"/>
-    <file src="..\Output\netcoreapp3.1\SharpVectors.Runtime.Wpf.xml" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Converters.Wpf.xml" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Core.xml" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Css.xml" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Dom.xml" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Model.xml" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Rendering.Gdi.xml" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Rendering.Wpf.xml" target="lib\net5.0-windows"/>
+    <file src="..\Output\netcoreapp3.1\Altua.SharpVectors.Runtime.Wpf.xml" target="lib\net5.0-windows"/>
 
     <file src="..\Images\SharpVectors64.png" target="images"/>
      <file src="..\License.txt" target="lib"/>
