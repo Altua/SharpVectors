@@ -7,8 +7,8 @@ pool:
   
 variables:
   buildConfiguration: Release
-  Major: 1
-  Minor: 0
+  Major: 0
+  Minor: 1
   Revision: $[counter(format('{0}-{1}', variables['Major'], variables['Minor']), 0)]
   PackageVersion: $[format('{0}.{1}.{2}', variables['Major'], variables['Minor'], variables['Revision'])]
 
@@ -18,7 +18,7 @@ steps:
   inputs:
     buildType: 'specific'
     project: 'a119dd29-1840-4811-bac7-d797f815186b'
-    definition: '100'
+    definition: '131'
     specificBuildWithTriggering: false
     buildVersionToDownload: 'latestFromBranch'
     branchName: 'refs/heads/master'
@@ -28,7 +28,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: '$(Pipeline.Workspace)/SharpVectors.nuspec'
+    packagesToPack: '$(Pipeline.Workspace)/Source/SharpVectors.nuspec'
     packDestination: '$(Pipeline.Workspace)/Package'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'PackageVersion'
