@@ -28,7 +28,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: '$(Pipeline.Workspace)/Source/SharpVectors.nuspec'
+    packagesToPack: '$(Pipeline.Workspace)/Source/Altua.SharpVectors.nuspec'
     packDestination: '$(Pipeline.Workspace)/Package'
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'PackageVersion'
