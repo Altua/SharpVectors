@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("SharpVectors.Model")]
 [assembly: AssemblyCopyright("Copyright © 2010 - 2021 Elinam LLC")]
 [assembly: AssemblyTrademark("Open Source, Licensed BSD-3")]
-[assembly: AssemblyCulture("")]		
+[assembly: AssemblyCulture("")]
 
 //
 // Version information for an assembly consists of the following four values:
@@ -29,9 +29,10 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.7.6.0")]
-[assembly: AssemblyFileVersion("1.7.6.0")]
-[assembly: AssemblyInformationalVersion("1.7.6.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+//[assembly: AssemblyVersion("1.7.6.0")]
+//[assembly: AssemblyFileVersion("1.7.6.0")]
+//[assembly: AssemblyInformationalVersion("1.7.6.0")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
