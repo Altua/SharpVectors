@@ -51,7 +51,7 @@ steps:
     Contents: |
       Output\**\*.dll
       Source\*.nuspec
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\SharpVectors'
 
 - task: DownloadSecureFile@1    
   name: certificate
