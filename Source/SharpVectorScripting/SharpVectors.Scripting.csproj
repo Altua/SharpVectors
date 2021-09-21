@@ -3,7 +3,7 @@
     <TargetFrameworks>net40;net45;net46;net47;net48;netstandard2.1;net5.0</TargetFrameworks>
     <AssemblyOriginatorKeyFile>SharpVectors.Scripting.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>SharpVectors.Scripting</RootNamespace>
-    <AssemblyName>SharpVectors.Scripting</AssemblyName>
+    <AssemblyName>Altua.SharpVectors.Scripting</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>

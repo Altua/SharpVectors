@@ -4,7 +4,7 @@
     <AssemblyOriginatorKeyFile>SharpVectors.Dom.snk</AssemblyOriginatorKeyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>SharpVectors.Dom</RootNamespace>
-    <AssemblyName>SharpVectors.Dom</AssemblyName>
+    <AssemblyName>Altua.SharpVectors.Dom</AssemblyName>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
     <IsPackable>false</IsPackable>

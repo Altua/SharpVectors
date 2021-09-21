@@ -310,6 +310,8 @@ namespace SharpVectors.Dom.Css
                     {
                         InsertRule(rule);
                     }
+                    else
+                        break;
                 }
                 else
                 {

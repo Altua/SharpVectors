@@ -3,7 +3,7 @@
     <TargetFrameworks>net40;net45;net46;net47;net48;netstandard2.1;net5.0</TargetFrameworks>
     <AssemblyOriginatorKeyFile>SharpVectors.Model.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>SharpVectors.Dom</RootNamespace>
-    <AssemblyName>SharpVectors.Model</AssemblyName>
+    <AssemblyName>Altua.SharpVectors.Model</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>

@@ -4,7 +4,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyOriginatorKeyFile>SharpVectors.Rendering.Gdi.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>SharpVectors.Renderers</RootNamespace>
-    <AssemblyName>SharpVectors.Rendering.Gdi</AssemblyName>
+    <AssemblyName>Altua.SharpVectors.Rendering.Gdi</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>

@@ -3,7 +3,7 @@
     <TargetFrameworks>net40;net45;net46;net47;net48;netcoreapp3.1;net5.0-windows</TargetFrameworks>
     <UseWpf>true</UseWpf>
     <RootNamespace>SharpVectors.Converters</RootNamespace>
-    <AssemblyName>SharpVectors.Converters.Wpf</AssemblyName>
+    <AssemblyName>Altua.SharpVectors.Converters.Wpf</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SharpVectors.Converters.snk</AssemblyOriginatorKeyFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
