@@ -6,12 +6,18 @@
     <RootNamespace>SharpVectors.Renderers</RootNamespace>
     <AssemblyName>Altua.SharpVectors.Rendering.Gdi</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyTitle>SVG 1.1 GDI+ Rendering Engine</AssemblyTitle>
+    <Copyright>Copyright © 2010 - 2021 Elinam LLC Open Source, Licensed BSD-3</Copyright>
+    <Product>SharpVectors.Rendering.Gdi</Product>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
     <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectGuid>{F6052893-60C5-4ba7-A0B1-3F7ED33492D9}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>

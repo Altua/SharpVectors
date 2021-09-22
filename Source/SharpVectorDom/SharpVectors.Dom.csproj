@@ -2,7 +2,10 @@
   <PropertyGroup>
     <TargetFrameworks>net40;net45;net46;net47;net48;netstandard2.1;net5.0</TargetFrameworks>
     <AssemblyOriginatorKeyFile>SharpVectors.Dom.snk</AssemblyOriginatorKeyFile>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyTitle>SVG 1.1 DOM Implementation</AssemblyTitle>
+    <Copyright>Copyright © 2010 - 2021 Elinam LLC Open Source, Licensed BSD-3</Copyright>
+    <Product>SharpVectors.Dom</Product>
     <RootNamespace>SharpVectors.Dom</RootNamespace>
     <AssemblyName>Altua.SharpVectors.Dom</AssemblyName>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
@@ -10,6 +13,9 @@
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
     <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectGuid>{CC70C39C-9A99-4ce9-A9C1-725CE715F533}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>

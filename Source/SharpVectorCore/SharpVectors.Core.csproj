@@ -4,12 +4,18 @@
     <AssemblyOriginatorKeyFile>SharpVectors.Core.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>SharpVectors.Dom</RootNamespace>
     <AssemblyName>Altua.SharpVectors.Core</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyTitle>SVG 1.1 Interface Bindings</AssemblyTitle>
+    <Copyright>Copyright © 2010 - 2021 Elinam LLC Open Source, Licensed BSD-3</Copyright>
+    <Product>SharpVectors.Core</Product>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
     <OutputType>Library</OutputType>
     <IsPackable>false</IsPackable>
     <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectGuid>{44593FBC-7231-4a51-AE9A-C5332D948F11}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE</DefineConstants>

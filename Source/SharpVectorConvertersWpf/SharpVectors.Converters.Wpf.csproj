@@ -6,7 +6,10 @@
     <AssemblyName>Altua.SharpVectors.Converters.Wpf</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SharpVectors.Converters.snk</AssemblyOriginatorKeyFile>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyTitle>SVG-to-XAML Converters</AssemblyTitle>
+    <Copyright>Copyright © 2010 - 2021 Elinam LLC Open Source, Licensed BSD-3</Copyright>
+    <Product>SharpVectors.Converters.Wpf</Product>
     <EnableDefaultPageItems>false</EnableDefaultPageItems>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>

@@ -4,12 +4,18 @@
     <AssemblyOriginatorKeyFile>SharpVectors.Css.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>SharpVectors.Dom</RootNamespace>
     <AssemblyName>Altua.SharpVectors.Css</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyTitle>SVG 1.1 CSS Implementation</AssemblyTitle>
+    <Copyright>Copyright © 2010 - 2021 Elinam LLC Open Source, Licensed BSD-3</Copyright>
+    <Product>SharpVectors.Css</Product>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
     <IsPackable>false</IsPackable>
     <OutputType>Library</OutputType>
     <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectGuid>{4D42DFAF-2BA4-42f4-9590-4FFA2A29CED2}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
