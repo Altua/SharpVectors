@@ -1,8 +1,8 @@
 using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SharpVectors.Dom.Css
 {
@@ -29,19 +29,38 @@ namespace SharpVectors.Dom.Css
     /// </summary>
     public class CssStyleDeclaration : ICssStyleDeclaration
     {
-        #region Static Members
+        internal const string UrlData = "url:Data";
+        internal const string UrlEncoding = "url:Encoding";
+        internal const string UrlMime = "url:Mime";
+
+        internal const string UrlName = "url:Name";
 
         [ThreadStatic]
         private static CssStyleDeclaration _emptyCssStyle;
 
-        internal const string UrlName     = "url:Name";
-        internal const string UrlMime     = "url:Mime";
-        internal const string UrlData     = "url:Data";
-        internal const string UrlEncoding = "url:Encoding";
-
         private static readonly Regex _reComment = new Regex(@"(//.*)|(/\*(.|\n)*?\*/)");
-        private static readonly Regex _styleRegex = new Regex(
-            @"^(?<name>[A-Za-z\-0-9]+)\s*:(?<value>[^;\}!]+)(!\s?(?<priority>important))?;?");
+
+        private static readonly Regex _reEmbeddedUrl = new Regex(
+            @"^(?<name>[A-Za-z\-0-9]+)\s*:\s*url\(data:(?<mime>[\w/\-\.]+);(?<encoding>\w+),(?<data>[^;\}!]+)(!\s?(?<priority>important))?;?");
+
+        // font: font-style font-variant font-weight font-size/line-height font-family
+        // NOTE: font-stretch is not yet supported!
+        private static readonly Regex _reFont = new Regex(@"^\s*(?=(?:(?:[-a-z]+\s*){0,2}(italic|oblique))?)"
+                + @"(?=(?:(?:[-a-z]+\s*){0,2}(small-caps))?)"
+                + @"(?=(?:(?:[-a-z]+\s*){0,2}(bold(?:er)?|lighter|[1-9]00\b))?)"
+                + @"(?:(?:normal|\1|\2|\3)\s*){0,3}"
+                + @"((?:xx?-)?(?:small|large)|medium|smaller|larger|[.\d]+(?:\%|in|[cem]m|ex|p[ctx])?)?"
+                + @"(?:\s*\/\s*(normal|[.\d]+(?:\%|in|[cem]m|ex|p[ctx])?))?\s*([-,\""\sa-z]+|(['""])(?:(?!\1|\\).|\\.)*\1?)?\s*$",
+            RegexOptions.IgnoreCase);
+
+        private static readonly Regex _reFontStretch = new Regex(
+            @"\s*(ultra-condensed|extra-condensed|condensed|semi-condensed|semi-expanded|expanded|extra-expanded|ultra-expanded)?$",
+            RegexOptions.IgnoreCase);
+        private static readonly Regex _reFontWeight = new Regex(
+            @"\s*(bold(?:er)?|lighter|[1-9]00)?$", RegexOptions.IgnoreCase);
+        private static readonly Regex _reSplitCssOther = new Regex(@"({|;)([^:{;]+:[^;}]+)(;|})");
+
+        private static readonly Regex _reSplitCss = new Regex(@"([^:\s]+)\s*:\s*([^;]+);");
         // We'll use your regex for extracting the valid URLs
         private static readonly Regex _reUrls = new Regex(@"(?nx)
                     url \s* \( \s*
@@ -56,13 +75,9 @@ namespace SharpVectors.Dom.Css
                         )
                     \s* \)");
 
-        private static readonly Regex _reSplitCss = new Regex(@"([^:\s]+)*\s*:\s*([^;]+);");
-        private static readonly Regex _reSplitCssOther = new Regex(@"({|;)([^:{;]+:[^;}]+)(;|})");
-
         private static readonly Regex _reUrlTidy = new Regex(@"(^|{|})(\\s*{[^}]*})");
-
-        private static readonly Regex _reEmbeddedUrl = new Regex(
-            @"^(?<name>[A-Za-z\-0-9]+)\s*:\s*url\(data:(?<mime>[\w/\-\.]+);(?<encoding>\w+),(?<data>[^;\}!]+)(!\s?(?<priority>important))?;?");
+        private static readonly Regex _styleRegex = new Regex(
+            @"^(?<name>[A-Za-z\-0-9]+)\s*:(?<value>[^;\}!]+)(!\s?(?<priority>important))?;?");
 
         // Enter properties that can validly contain a URL here (in lowercase):
         private static readonly ISet<string> _validUrlProps = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -70,105 +85,18 @@ namespace SharpVectors.Dom.Css
             "src", "background", "background-image"
         };
 
-        // font: font-style font-variant font-weight font-size/line-height font-family
-        // NOTE: font-stretch is not yet supported!
-        private static readonly Regex _reFont = new Regex(@"^\s*(?=(?:(?:[-a-z]+\s*){0,2}(italic|oblique))?)"
-                + @"(?=(?:(?:[-a-z]+\s*){0,2}(small-caps))?)"
-                + @"(?=(?:(?:[-a-z]+\s*){0,2}(bold(?:er)?|lighter|[1-9]00\b))?)"
-                + @"(?:(?:normal|\1|\2|\3)\s*){0,3}"
-                + @"((?:xx?-)?(?:small|large)|medium|smaller|larger|[.\d]+(?:\%|in|[cem]m|ex|p[ctx])?)?"
-                + @"(?:\s*\/\s*(normal|[.\d]+(?:\%|in|[cem]m|ex|p[ctx])?))?\s*([-,\""\sa-z]+|(['""])(?:(?!\1|\\).|\\.)*\1?)?\s*$", 
-            RegexOptions.IgnoreCase);
 
-        private static readonly Regex _reFontStretch = new Regex(
-            @"\s*(ultra-condensed|extra-condensed|condensed|semi-condensed|semi-expanded|expanded|extra-expanded|ultra-expanded)?$", 
-            RegexOptions.IgnoreCase);
-        private static readonly Regex _reFontWeight = new Regex(
-            @"\s*(bold(?:er)?|lighter|[1-9]00)?$", RegexOptions.IgnoreCase);
 
-        #endregion
-
-        #region Private Fields
-
-        private bool _readOnly;
-        private CssStyleSheetType _origin;
-        private IDictionary<string, CssStyleBlock> _styles;
-        private ICssRule _parentRule;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// The constructor used internally when collecting styles for a specified element
-        /// </summary>
-        protected CssStyleDeclaration()
+        internal static CssStyleDeclaration EmptyCssStyle
         {
-            _origin     = CssStyleSheetType.Collector;
-            _readOnly   = true;
-            _parentRule = null;
-            _styles     = new Dictionary<string, CssStyleBlock>(StringComparer.OrdinalIgnoreCase);
-        }
-
-        /// <summary>
-        /// The constructor for CssStyleDeclaration
-        /// </summary>
-        /// <param name="css">The string to parse for CSS</param>
-        /// <param name="parentRule">The parent rule or parent stylesheet</param>
-        /// <param name="readOnly">True if this instance is readonly</param>
-        /// <param name="origin">The type of CssStyleSheet</param>
-        public CssStyleDeclaration(ref string css, CssRule parentRule, bool readOnly, CssStyleSheetType origin)
-            : this()
-        {
-            _origin     = origin;
-            _readOnly   = readOnly;
-            _parentRule = parentRule;
-
-            css         = ParseString(css);
-        }
-
-        public CssStyleDeclaration(string css, CssRule parentRule, bool readOnly, CssStyleSheetType origin)
-            : this()
-        {
-            _origin     = origin;
-            _readOnly   = readOnly;
-            _parentRule = parentRule;
-
-            ParseString(css);
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        public bool ReadOnly
-        {
-            get {
-                return _readOnly;
-            }
-        }
-
-        public CssStyleSheetType Origin
-        {
-            get {
-                return _origin;
-            }
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-		/// Used to find matching style rules in the cascading order
-		/// </summary>
-		public void GetStylesForElement(CssCollectedStyleDeclaration csd, int specificity)
-        {
-            foreach (KeyValuePair<string, CssStyleBlock> de in _styles)
+            get
             {
-                CssStyleBlock scs = de.Value;
-                csd.CollectProperty(scs.Name, specificity,
-                    (CssValue)GetPropertyCssValue(scs.Name), scs.Origin, scs.Priority);
+                if (_emptyCssStyle == null)
+                {
+                    _emptyCssStyle = new CssStyleDeclaration();
+                }
+
+                return _emptyCssStyle;
             }
         }
 
@@ -285,10 +213,152 @@ namespace SharpVectors.Dom.Css
 
             return validUrls;
         }
+        private CssStyleSheetType _origin;
+        private ICssRule _parentRule;
 
-        #endregion
 
-        #region Private Methods
+
+        private bool _readOnly;
+        private IDictionary<string, CssStyleBlock> _styles;
+
+
+
+        /// <summary>
+        /// The constructor used internally when collecting styles for a specified element
+        /// </summary>
+        protected CssStyleDeclaration()
+        {
+            _origin = CssStyleSheetType.Collector;
+            _readOnly = true;
+            _parentRule = null;
+            _styles = new Dictionary<string, CssStyleBlock>(StringComparer.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// The constructor for CssStyleDeclaration
+        /// </summary>
+        /// <param name="css">The string to parse for CSS</param>
+        /// <param name="parentRule">The parent rule or parent stylesheet</param>
+        /// <param name="readOnly">True if this instance is readonly</param>
+        /// <param name="origin">The type of CssStyleSheet</param>
+        public CssStyleDeclaration(ref string css, CssRule parentRule, bool readOnly, CssStyleSheetType origin)
+            : this()
+        {
+            _origin = origin;
+            _readOnly = readOnly;
+            _parentRule = parentRule;
+
+            css = ParseString(css);
+        }
+
+        public CssStyleDeclaration(string css, CssRule parentRule, bool readOnly, CssStyleSheetType origin)
+            : this()
+        {
+            _origin = origin;
+            _readOnly = readOnly;
+            _parentRule = parentRule;
+
+            ParseString(css);
+        }
+
+        /// <summary>
+        /// The parsable textual representation of the declaration block (excluding the surrounding curly braces). 
+        /// Setting this attribute will result in the parsing of the new value and resetting of all the properties 
+        /// in the declaration block including the removal or addition of properties.
+        /// </summary>
+        /// <exception cref="DomException"><c>SYNTAX_ERR:</c> Raised if the specified CSS string value has a syntax error and is unparsable.</exception>
+        /// <exception cref="DomException"><c>NO_MODIFICATION_ALLOWED_ERR:</c> Raised if this declaration is readonly or a property is readonly.</exception>
+        public virtual string CssText
+        {
+            get
+            {
+                StringBuilder builder = new StringBuilder();
+
+                IEnumerator<KeyValuePair<string, CssStyleBlock>> enu = _styles.GetEnumerator();
+                while (enu.MoveNext())
+                {
+                    CssStyleBlock style = enu.Current.Value;
+                    builder.Append(style.CssText);
+                    builder.Append(";");
+                }
+
+                return builder.ToString();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// The number of properties that have been explicitly set in this declaration block. 
+        /// The range of valid indices is 0 to length-1 inclusive.
+        /// </summary>
+        public virtual ulong Length
+        {
+            get
+            {
+                return (ulong)_styles.Count;
+            }
+        }
+
+        public CssStyleSheetType Origin
+        {
+            get
+            {
+                return _origin;
+            }
+        }
+
+        /// <summary>
+        /// The CSS rule that contains this declaration block or null if this CSSStyleDeclaration is not attached to a CSSRule.
+        /// </summary>
+        public ICssRule ParentRule
+        {
+            get
+            {
+                return _parentRule;
+            }
+        }
+
+
+
+        public bool ReadOnly
+        {
+            get
+            {
+                return _readOnly;
+            }
+        }
+
+        /// <summary>
+        /// Used to retrieve the properties that have been explicitly set in this declaration block. 
+        /// The order of the properties retrieved using this method does not have to be the order in which they were set. 
+        /// This method can be used to iterate over all properties in this declaration block.
+        /// The name of the property at this ordinal position. The empty string if no property exists at this position.
+        /// </summary>
+        public virtual string this[ulong index]
+        {
+            get
+            {
+                if (index >= Length)
+                    return string.Empty;
+
+                int ind = (int)index;
+                IEnumerator<KeyValuePair<string, CssStyleBlock>> iterator = _styles.GetEnumerator();
+                iterator.MoveNext();
+                KeyValuePair<string, CssStyleBlock> enu = iterator.Current;
+                for (int i = 0; i < ind; i++)
+                {
+                    iterator.MoveNext();
+                    enu = iterator.Current;
+                }
+
+                return enu.Key;
+            }
+        }
+
+
 
         private string ParseString(string cssText)
         {
@@ -310,7 +380,7 @@ namespace SharpVectors.Dom.Css
             Match match = _styleRegex.Match(cssText);
             while (match.Success)
             {
-                string name  = match.Groups["name"].Value.Trim();
+                string name = match.Groups["name"].Value.Trim();
                 string value = match.Groups["value"].Value.Trim();
                 if (_parentRule != null)
                 {
@@ -325,12 +395,12 @@ namespace SharpVectors.Dom.Css
                         var matchUrl = _reEmbeddedUrl.Match(cssText);
                         if (matchUrl != null && matchUrl.Groups != null && matchUrl.Groups.Count >= 3)
                         {
-                            var nameUrl     = matchUrl.Groups["name"].Value;
-                            var mimeUrl     = matchUrl.Groups["mime"].Value;
+                            var nameUrl = matchUrl.Groups["name"].Value;
+                            var mimeUrl = matchUrl.Groups["mime"].Value;
                             var encodingUrl = matchUrl.Groups["encoding"].Value;
-                            var dataUrl     = matchUrl.Groups["data"].Value;
+                            var dataUrl = matchUrl.Groups["data"].Value;
 
-                            if (string.Equals(name, nameUrl, StringComparison.Ordinal) 
+                            if (string.Equals(name, nameUrl, StringComparison.Ordinal)
                                 && !string.IsNullOrWhiteSpace(mimeUrl)
                                 && !string.IsNullOrWhiteSpace(encodingUrl)
                                 && !string.IsNullOrWhiteSpace(dataUrl))
@@ -342,9 +412,9 @@ namespace SharpVectors.Dom.Css
 
                                 if (!_styles.ContainsKey(UrlName) && foundAt > 0)
                                 {
-                                    _styles.Add(UrlName,     new CssStyleBlock(UrlName, nameUrl, string.Empty, _origin));
-                                    _styles.Add(UrlMime,     new CssStyleBlock(UrlMime, mimeUrl, string.Empty, _origin));
-                                    _styles.Add(UrlData,     new CssStyleBlock(UrlData, dataUrl.Substring(0, foundAt), string.Empty, _origin));
+                                    _styles.Add(UrlName, new CssStyleBlock(UrlName, nameUrl, string.Empty, _origin));
+                                    _styles.Add(UrlMime, new CssStyleBlock(UrlMime, mimeUrl, string.Empty, _origin));
+                                    _styles.Add(UrlData, new CssStyleBlock(UrlData, dataUrl.Substring(0, foundAt), string.Empty, _origin));
                                     _styles.Add(UrlEncoding, new CssStyleBlock(UrlEncoding, encodingUrl, string.Empty, _origin));
                                 }
                             }
@@ -353,9 +423,9 @@ namespace SharpVectors.Dom.Css
                 }
                 else if (string.Equals(name, "font"))
                 {
-                    var fontParts = new string[] { 
-                        "font", "font-style", "font-variant", "font-weight", 
-                        "font-size", "line-height", "font-family", "font-family", "font-stretch" 
+                    var fontParts = new string[] {
+                        "font", "font-style", "font-variant", "font-weight",
+                        "font-size", "line-height", "font-family", "font-family", "font-stretch"
                     };
                     int count = 0;
 
@@ -410,7 +480,7 @@ namespace SharpVectors.Dom.Css
                 if (_styles.ContainsKey(name))
                 {
                     string existingPrio = _styles[name].Priority;
-                    
+
                     if (existingPrio != "important" || prio == "important")
                     {
                         _styles.Remove(name);
@@ -428,7 +498,7 @@ namespace SharpVectors.Dom.Css
                 }
 
                 cssText = cssText.Substring(match.Length).Trim();
-                match   = _styleRegex.Match(cssText);
+                match = _styleRegex.Match(cssText);
             }
 
             cssText = cssText.Trim();
@@ -443,9 +513,150 @@ namespace SharpVectors.Dom.Css
             return cssText;
         }
 
-        #endregion
+        internal bool Contains(string key)
+        {
+            if (_styles != null && _styles.Count != 0)
+            {
+                return _styles.ContainsKey(key);
+            }
+            return false;
+        }
 
-        #region ICssStyleDeclaration Members
+        internal CssStyleBlock Get(string key)
+        {
+            if (_styles != null && _styles.Count != 0 && _styles.ContainsKey(key))
+            {
+                return _styles[key];
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Used to retrieve the object representation of the value of a CSS property if it has been explicitly set 
+        /// within this declaration block. This method returns null if the property is a shorthand property. 
+        /// Shorthand property values can only be accessed and modified as strings, using the getPropertyValue and 
+        /// setProperty methods.
+        /// </summary>
+        /// <param name="propertyName">The name of the CSS property. See the CSS property index.</param>
+        /// <returns>Returns the value of the property if it has been explicitly set for this declaration block. 
+        /// Returns null if the property has not been set.</returns>
+        public virtual ICssValue GetPropertyCssValue(string propertyName)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+            {
+                return null;
+            }
+            if (_styles.ContainsKey(propertyName))
+            {
+                CssStyleBlock scs = _styles[propertyName];
+                if (propertyName.Equals(SvgConstants.AttrFontFamily, StringComparison.OrdinalIgnoreCase))
+                {
+                    scs.CssValue = new CssValue(CssValueType.PrimitiveValue, scs.Value, ReadOnly);
+                }
+                else if (scs.CssValue == null)
+                {
+                    scs.CssValue = CssValue.GetCssValue(scs.Value, ReadOnly);
+                }
+                return scs.CssValue;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Used to retrieve the priority of a CSS property (e.g. the "important" qualifier) if the property 
+        /// has been explicitly set in this declaration block.
+        /// </summary>
+        /// <param name="propertyName">The name of the CSS property. See the CSS property index.</param>
+        /// <returns>A string representing the priority (e.g. "important") if one exists. The empty string if none exists.</returns>
+        public virtual string GetPropertyPriority(string propertyName)
+        {
+            return (_styles.ContainsKey(propertyName)) ? _styles[propertyName].Priority : string.Empty;
+        }
+
+        /// <summary>
+        /// Used to retrieve the value of a CSS property if it has been explicitly set within this declaration block.
+        /// </summary>
+        /// <param name="propertyName">The name of the CSS property. See the CSS property index.</param>
+        /// <returns>Returns the value of the property if it has been explicitly set for this declaration block. 
+        /// Returns the empty string if the property has not been set.</returns>
+        public virtual string GetPropertyValue(string propertyName)
+        {
+            if (string.IsNullOrWhiteSpace(propertyName))
+            {
+                return string.Empty;
+            }
+            return (_styles.ContainsKey(propertyName)) ? _styles[propertyName].Value.Trim('\'') : string.Empty;
+        }
+
+        /// <summary>
+        /// Used to retrieve the value of a CSS property if it has been explicitly set within this declaration block.
+        /// </summary>
+        /// <param name="propertyNames">The name of the CSS property. See the CSS property index.</param>
+        /// <returns>Returns the value of the property if it has been explicitly set for this declaration block. 
+        /// Returns the empty string if the property has not been set.</returns>
+        public virtual string GetPropertyValue(string[] propertyNames)
+        {
+            if (propertyNames == null || propertyNames.Length == 0)
+            {
+                return string.Empty;
+            }
+            foreach (var propertyName in propertyNames)
+            {
+                if (_styles.ContainsKey(propertyName))
+                    return _styles[propertyName].Value.Trim('\'');
+            }
+            return string.Empty;
+        }
+
+
+
+        /// <summary>
+        /// Used to find matching style rules in the cascading order
+        /// </summary>
+        public void GetStylesForElement(CssCollectedStyleDeclaration csd, int specificity)
+        {
+            foreach (KeyValuePair<string, CssStyleBlock> de in _styles)
+            {
+                CssStyleBlock scs = de.Value;
+                csd.CollectProperty(scs.Name, specificity,
+                    (CssValue)GetPropertyCssValue(scs.Name), scs.Origin, scs.Priority);
+            }
+        }
+
+        internal string GetValue(string key)
+        {
+            if (_styles != null && _styles.Count != 0 && _styles.ContainsKey(key))
+            {
+                return _styles[key].Value;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Used to remove a CSS property if it has been explicitly set within this declaration block.
+        /// </summary>
+        /// <param name="propertyName">The name of the CSS property. See the CSS property index.</param>
+        /// <returns>Returns the value of the property if it has been explicitly set for this declaration block. 
+        /// Returns the empty string if the property has not been set or the property name does not correspond 
+        /// to a known CSS property.</returns>
+        /// <exception cref="DomException"><c>NO_MODIFICATION_ALLOWED_ERR:</c> Raised if this declaration is readonly 
+        /// or the property is readonly.</exception>
+        public string RemoveProperty(string propertyName)
+        {
+            if (_readOnly)
+                throw new DomException(DomExceptionType.NoModificationAllowedErr);
+
+            if (_styles.ContainsKey(propertyName))
+            {
+                CssStyleBlock s = _styles[propertyName];
+                _styles.Remove(propertyName);
+                return s.Value;
+            }
+
+            return string.Empty;
+        }
+
+
 
         /// <summary>
         /// Used to set a property value and priority within this declaration block
@@ -486,224 +697,5 @@ namespace SharpVectors.Dom.Css
             }
         }
 
-        /// <summary>
-        /// Used to retrieve the priority of a CSS property (e.g. the "important" qualifier) if the property 
-        /// has been explicitly set in this declaration block.
-        /// </summary>
-        /// <param name="propertyName">The name of the CSS property. See the CSS property index.</param>
-        /// <returns>A string representing the priority (e.g. "important") if one exists. The empty string if none exists.</returns>
-        public virtual string GetPropertyPriority(string propertyName)
-        {
-            return (_styles.ContainsKey(propertyName)) ? _styles[propertyName].Priority : string.Empty;
-        }
-
-        /// <summary>
-        /// Used to remove a CSS property if it has been explicitly set within this declaration block.
-        /// </summary>
-        /// <param name="propertyName">The name of the CSS property. See the CSS property index.</param>
-        /// <returns>Returns the value of the property if it has been explicitly set for this declaration block. 
-        /// Returns the empty string if the property has not been set or the property name does not correspond 
-        /// to a known CSS property.</returns>
-        /// <exception cref="DomException"><c>NO_MODIFICATION_ALLOWED_ERR:</c> Raised if this declaration is readonly 
-        /// or the property is readonly.</exception>
-        public string RemoveProperty(string propertyName)
-        {
-            if (_readOnly)
-                throw new DomException(DomExceptionType.NoModificationAllowedErr);
-
-            if (_styles.ContainsKey(propertyName))
-            {
-                CssStyleBlock s = _styles[propertyName];
-                _styles.Remove(propertyName);
-                return s.Value;
-            }
-
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// Used to retrieve the object representation of the value of a CSS property if it has been explicitly set 
-        /// within this declaration block. This method returns null if the property is a shorthand property. 
-        /// Shorthand property values can only be accessed and modified as strings, using the getPropertyValue and 
-        /// setProperty methods.
-        /// </summary>
-        /// <param name="propertyName">The name of the CSS property. See the CSS property index.</param>
-        /// <returns>Returns the value of the property if it has been explicitly set for this declaration block. 
-        /// Returns null if the property has not been set.</returns>
-        public virtual ICssValue GetPropertyCssValue(string propertyName)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-            {
-                return null;
-            }
-            if (_styles.ContainsKey(propertyName))
-            {
-                CssStyleBlock scs = _styles[propertyName];
-                if (propertyName.Equals(SvgConstants.AttrFontFamily, StringComparison.OrdinalIgnoreCase))
-                {
-                    scs.CssValue = new CssValue(CssValueType.PrimitiveValue, scs.Value, ReadOnly);
-                }
-                else if (scs.CssValue == null)
-                {
-                    scs.CssValue = CssValue.GetCssValue(scs.Value, ReadOnly);
-                }
-                return scs.CssValue;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Used to retrieve the value of a CSS property if it has been explicitly set within this declaration block.
-        /// </summary>
-        /// <param name="propertyName">The name of the CSS property. See the CSS property index.</param>
-        /// <returns>Returns the value of the property if it has been explicitly set for this declaration block. 
-        /// Returns the empty string if the property has not been set.</returns>
-        public virtual string GetPropertyValue(string propertyName)
-        {
-            if (string.IsNullOrWhiteSpace(propertyName))
-            {
-                return string.Empty;
-            }
-            return (_styles.ContainsKey(propertyName)) ? _styles[propertyName].Value.Trim('\'') : string.Empty;
-        }
-
-        /// <summary>
-        /// Used to retrieve the value of a CSS property if it has been explicitly set within this declaration block.
-        /// </summary>
-        /// <param name="propertyNames">The name of the CSS property. See the CSS property index.</param>
-        /// <returns>Returns the value of the property if it has been explicitly set for this declaration block. 
-        /// Returns the empty string if the property has not been set.</returns>
-        public virtual string GetPropertyValue(string[] propertyNames)
-        {
-            if (propertyNames == null || propertyNames.Length == 0)
-            {
-                return string.Empty;
-            }
-            foreach (var propertyName in propertyNames)
-            {
-                if (_styles.ContainsKey(propertyName))
-                    return _styles[propertyName].Value.Trim('\'');
-            }
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// The CSS rule that contains this declaration block or null if this CSSStyleDeclaration is not attached to a CSSRule.
-        /// </summary>
-        public ICssRule ParentRule
-        {
-            get {
-                return _parentRule;
-            }
-        }
-
-        /// <summary>
-        /// The number of properties that have been explicitly set in this declaration block. 
-        /// The range of valid indices is 0 to length-1 inclusive.
-        /// </summary>
-        public virtual ulong Length
-        {
-            get {
-                return (ulong)_styles.Count;
-            }
-        }
-
-        /// <summary>
-        /// The parsable textual representation of the declaration block (excluding the surrounding curly braces). 
-        /// Setting this attribute will result in the parsing of the new value and resetting of all the properties 
-        /// in the declaration block including the removal or addition of properties.
-        /// </summary>
-        /// <exception cref="DomException"><c>SYNTAX_ERR:</c> Raised if the specified CSS string value has a syntax error and is unparsable.</exception>
-        /// <exception cref="DomException"><c>NO_MODIFICATION_ALLOWED_ERR:</c> Raised if this declaration is readonly or a property is readonly.</exception>
-        public virtual string CssText
-        {
-            get {
-                StringBuilder builder = new StringBuilder();
-
-                IEnumerator<KeyValuePair<string, CssStyleBlock>> enu = _styles.GetEnumerator();
-                while (enu.MoveNext())
-                {
-                    CssStyleBlock style = enu.Current.Value;
-                    builder.Append(style.CssText);
-                    builder.Append(";");
-                }
-
-                return builder.ToString();
-            }
-            set {
-                throw new NotImplementedException();
-            }
-        }
-
-        /// <summary>
-        /// Used to retrieve the properties that have been explicitly set in this declaration block. 
-        /// The order of the properties retrieved using this method does not have to be the order in which they were set. 
-        /// This method can be used to iterate over all properties in this declaration block.
-        /// The name of the property at this ordinal position. The empty string if no property exists at this position.
-        /// </summary>
-        public virtual string this[ulong index]
-        {
-            get {
-                if (index >= Length)
-                    return string.Empty;
-
-                int ind = (int)index;
-                IEnumerator<KeyValuePair<string, CssStyleBlock>> iterator = _styles.GetEnumerator();
-                iterator.MoveNext();
-                KeyValuePair<string, CssStyleBlock> enu = iterator.Current;
-                for (int i = 0; i < ind; i++)
-                {
-                    iterator.MoveNext();
-                    enu = iterator.Current;
-                }
-
-                return enu.Key;
-            }
-        }
-
-        #endregion
-
-        #region Internal Properties and Methods
-
-        internal static CssStyleDeclaration EmptyCssStyle
-        {
-            get {
-                if (_emptyCssStyle == null)
-                {
-                    _emptyCssStyle = new CssStyleDeclaration();
-                }
-
-                return _emptyCssStyle;
-            }
-        }
-
-        internal CssStyleBlock Get(string key)
-        {
-            if (_styles != null && _styles.Count != 0 && _styles.ContainsKey(key))
-            {
-                return _styles[key];
-            }
-            return null;
-        }
-
-        internal string GetValue(string key)
-        {
-            if (_styles != null && _styles.Count != 0 && _styles.ContainsKey(key))
-            {
-                return _styles[key].Value;
-            }
-            return null;
-        }
-
-        internal bool Contains(string key)
-        {
-            if (_styles != null && _styles.Count != 0)
-            {
-                return _styles.ContainsKey(key);
-            }
-            return false;
-        }
-
-        #endregion
     }
 }
